@@ -91,7 +91,9 @@ h3 { /* Título del formulario de añadir producto */
     font-size: 0.95em;
 }
 
+/* CAMBIO CLAVE AQUÍ: SE AGREGA input[type="text"] */
 .producto-input-section input[type="number"],
+.producto-input-section input[type="text"], /* ¡AÑADE ESTA LÍNEA! */
 .producto-input-section select {
     width: calc(100% - 22px);
     padding: 12px;
@@ -104,7 +106,9 @@ h3 { /* Título del formulario de añadir producto */
     transition: border-color 0.2s ease;
 }
 
+/* CAMBIO CLAVE AQUÍ: SE AGREGA input[type="text"]:focus */
 .producto-input-section input[type="number"]:focus,
+.producto-input-section input[type="text"]:focus, /* ¡AÑADE ESTA LÍNEA! */
 .producto-input-section select:focus {
     outline: none;
     border-color: var(--primary-color);
@@ -284,6 +288,7 @@ h3 { /* Título del formulario de añadir producto */
         padding: 20px;
     }
 
+    /* Ajuste para input y select en móviles */
     .producto-input-section input,
     .producto-input-section select {
         width: calc(100% - 20px);
