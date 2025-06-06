@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event listener para el botón "Añadir a la Boleta"
     document.getElementById('add-to-boleta-btn').addEventListener('click', addProductToBoleta);
 
-    // *** NUEVA LÓGICA DE NAVEGACIÓN CON ENTER ***
+    // --- LÓGICA DE NAVEGACIÓN CON ENTER RESTAURADA ---
     const tipoPrendaSelect = document.getElementById('tipo_prenda');
     const cantidadInput = document.getElementById('cantidad');
     const precioBaseInput = document.getElementById('precio_base');
@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             addBoletaBtn.click(); // Simula un clic en el botón Añadir a la Boleta
         }
     });
+    // --- FIN LÓGICA DE NAVEGACIÓN CON ENTER RESTAURADA ---
 });
 
 /**
@@ -104,23 +105,52 @@ function addProductToBoleta() {
     const paseUnidadInput = document.getElementById('pase_unidad');
 
     const prendaDisplay = tipoPrendaSelect.options[tipoPrendaSelect.selectedIndex].textContent;
-    const cantidad = parseFloat(cantidadInput.value);
     const precioBase = parseFloat(precioBaseInput.value) || 0;
     const paseUnidad = parseFloat(paseUnidadInput.value);
 
-    // Validaciones básicas antes de añadir
-    if (isNaN(cantidad) || cantidad <= 0 || isNaN(paseUnidad) || paseUnidad < 0) {
-        alert('Por favor, ingresa una cantidad válida (mayor a 0) y un pase por unidad válido (mayor o igual a 0).');
+    // --- LÓGICA PARA PARSEAR MÚLTIPLES CANTIDADES SEPARADAS POR ESPACIOS O COMAS ---
+    const rawQuantitiesString = cantidadInput.value.trim(); // Eliminar espacios al inicio/final
+    if (!rawQuantitiesString) {
+        alert('Por favor, ingresa la cantidad de productos (ej. 6, 12, 24).');
         return;
     }
 
-    // Total Producto = Cantidad * Pase por Unidad
+    // Dividir por comas o uno o más espacios, luego filtrar cualquier cadena vacía resultante
+    const quantityParts = rawQuantitiesString.split(/[\s,]+/).filter(part => part !== '');
+
+    let totalSummedQuantity = 0;
+    for (const part of quantityParts) {
+        const parsedQuantity = parseFloat(part);
+        // Validar que cada parte sea un número válido y positivo
+        if (isNaN(parsedQuantity) || parsedQuantity <= 0) {
+            alert('Error en la cantidad: Asegúrate de ingresar solo números válidos y positivos, separados por espacios o comas (ej. "6 12", "7, 10").');
+            return;
+        }
+        totalSummedQuantity += parsedQuantity;
+    }
+    // --- FIN LÓGICA DE MÚLTIPLES CANTIDADES ---
+
+    const cantidad = totalSummedQuantity; // 'cantidad' ahora es la suma total de las entradas
+
+    // VALIDACIÓN: Asegurarse de que la cantidad total sumada sea al menos 6
+    if (cantidad < 6) {
+        alert('La cantidad total de productos para añadir debe ser al menos 6 unidades. (Suma total de sus entradas)');
+        return;
+    }
+
+    // Validaciones existentes para paseUnidad
+    if (isNaN(paseUnidad) || paseUnidad < 0) {
+        alert('Por favor, ingresa un pase por unidad válido (mayor o igual a 0).');
+        return;
+    }
+
+    // Total Producto = Cantidad * Pase por Unidad (Esta fórmula se mantiene igual)
     const totalProducto = cantidad * paseUnidad;
 
     currentBoletaProducts.push({
         id: getUniqueProductId(),
         prendaDisplay: prendaDisplay,
-        cantidad: cantidad,
+        cantidad: cantidad, // Esto ahora es la suma de las cantidades ingresadas
         precioUnitario: precioBase,
         paseUnitario: paseUnidad,
         totalProducto: totalProducto
@@ -180,7 +210,7 @@ function updateBoletaSummary() {
 function resetInputForm() {
     const tipoPrendaSelect = document.getElementById('tipo_prenda');
     tipoPrendaSelect.value = 'camperas';
-    document.getElementById('cantidad').value = '1';
+    document.getElementById('cantidad').value = ''; // Se limpia el campo Cantidad
     document.getElementById('precio_base').value = '';
     actualizarPase();
 
