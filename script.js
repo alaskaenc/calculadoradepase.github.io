@@ -2,6 +2,8 @@
 const datosPrendas = {
     camperas: { pase: 2.30 },
     conjuntos: { pase: 1.70 },
+    camisas: { pase: 1.50 },
+    moletones: { pase: 1.50 },
     pantalon: { pase: 1.50 },
     sweaters: { pase: 1.20 },
     "tapados grandes": { pase: 2.50 },
