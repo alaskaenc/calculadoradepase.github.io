@@ -1,1 +1,0 @@
-# calculadoradepase.github.io
