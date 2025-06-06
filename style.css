@@ -1,0 +1,348 @@
+/* Importar una fuente de Google Fonts para un toque más moderno */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    /* Definición de variables CSS para colores, facilitando cambios futuros */
+    --primary-color: #007bff; /* Azul vibrante para elementos principales */
+    --secondary-color: #28a745; /* Verde para acciones de añadir */
+    --danger-color: #dc3545; /* Rojo para acciones de eliminar */
+    --text-color: #333; /* Color de texto principal */
+    --light-text-color: #666; /* Color de texto secundario */
+    --bg-color: #f8f9fa; /* Color de fondo muy claro */
+    --card-bg-color: #ffffff; /* Fondo para las tarjetas/productos */
+    --border-color: #e9ecef; /* Color de borde suave */
+    --shadow-color: rgba(0, 0, 0, 0.08); /* Sombra suave */
+}
+
+body {
+    font-family: 'Poppins', sans-serif; /* Usamos la fuente importada */
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinea al inicio para el scroll */
+    min-height: 100vh;
+    padding: 30px 20px; /* Más padding en general */
+    box-sizing: border-box;
+    color: var(--text-color);
+    line-height: 1.6; /* Mejora la legibilidad */
+}
+
+.container {
+    background-color: var(--card-bg-color);
+    padding: 35px; /* Más padding interno */
+    border-radius: 12px; /* Bordes más redondeados */
+    box-shadow: 0 5px 20px var(--shadow-color); /* Sombra más pronunciada pero suave */
+    width: 100%;
+    max-width: 900px; /* Reducido de 1050px a 900px para un ajuste más pequeño general */
+    margin-top: 20px;
+    display: flex;
+    gap: 25px; /* Reducido de 40px para más compactación */
+    flex-wrap: wrap; /* Permite que los contenedores se envuelvan */
+}
+
+.form-container {
+    flex: 2; /* Mayor proporción para el formulario */
+    min-width: 350px; /* Reducido de 450px a 350px para hacerlo más pequeño */
+    max-width: 50%; /* Asegura que no se haga demasiado ancho en pantallas grandes */
+}
+
+.summary-table-container {
+    flex: 1; /* Proporción para la tabla */
+    min-width: 300px; /* Ajustado ligeramente para balance */
+}
+
+h1, h2, h3 {
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 25px; /* Más espacio */
+    font-weight: 600; /* Un poco más de peso */
+}
+
+h1 {
+    font-size: 2.2em;
+    color: var(--primary-color); /* Título principal en color primario */
+}
+
+h2 {
+    font-size: 1.8em;
+}
+
+h3 { /* Título del formulario de añadir producto */
+    font-size: 1.4em;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.producto-input-section {
+    background-color: var(--bg-color); /* Fondo ligeramente diferente para la sección de entrada */
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 25px; /* Más padding */
+    margin-bottom: 25px;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Sombra sutil */
+}
+
+.producto-input-section label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 400;
+    color: var(--light-text-color);
+    font-size: 0.95em;
+}
+
+.producto-input-section input[type="number"],
+.producto-input-section select {
+    width: calc(100% - 22px);
+    padding: 12px;
+    margin-bottom: 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1em;
+    color: var(--text-color);
+    transition: border-color 0.2s ease;
+}
+
+.producto-input-section input[type="number"]:focus,
+.producto-input-section select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.producto-input-section input:read-only {
+    background-color: var(--border-color);
+    cursor: not-allowed;
+    color: var(--light-text-color);
+}
+
+#add-to-boleta-btn {
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+#add-to-boleta-btn:hover {
+    background-color: #218838;
+    transform: translateY(-2px); /* Pequeño efecto al pasar el ratón */
+}
+
+#add-to-boleta-btn:active {
+    transform: translateY(0);
+}
+
+.total-section {
+    margin-top: 40px; /* Más espacio */
+    padding-top: 25px;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.total-section h2 {
+    color: var(--danger-color); /* Rojo para el total final */
+    font-size: 2.5em; /* Tamaño más grande */
+    font-weight: 600;
+}
+
+/* Estilos para la tabla de resumen */
+#summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    overflow: hidden; /* Para que los bordes redondeados afecten la tabla */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+#summary-table th, #summary-table td {
+    border: 1px solid var(--border-color);
+    padding: 12px; /* Más padding en celdas */
+    text-align: left;
+    font-size: 0.9em;
+    vertical-align: middle; /* Alinear verticalmente el contenido al centro */
+}
+
+#summary-table th {
+    background-color: var(--primary-color); /* Encabezado de tabla con color primario */
+    color: white;
+    font-weight: 600;
+    text-align: center; /* Centrar el texto en los encabezados */
+}
+
+/* Ajuste de anchos de columna para mejor proporción */
+#summary-table th:nth-child(1), /* Cant. */
+#summary-table td:nth-child(1) {
+    width: 10%; /* Más estrecho */
+    text-align: center; /* Centrar la cantidad */
+}
+
+#summary-table th:nth-child(2), /* Prenda */
+#summary-table td:nth-child(2) {
+    width: 30%; /* Suficiente espacio para el nombre */
+}
+
+#summary-table th:nth-child(3), /* P. Unit. */
+#summary-table td:nth-child(3),
+#summary-table th:nth-child(4), /* Pase Unit. */
+#summary-table td:nth-child(4) {
+    width: 15%; /* Espacio similar para precios unitarios */
+    text-align: right; /* Alinear números a la derecha */
+}
+
+#summary-table th:nth-child(5), /* Total */
+#summary-table td:nth-child(5) {
+    width: 20%; /* Más espacio para el total */
+    text-align: right; /* Alinear números a la derecha */
+}
+
+#summary-table th:nth-child(6), /* Columna del botón (vacía en th) */
+#summary-table td:nth-child(6) {
+    width: 10%; /* Espacio para el botón */
+    text-align: center; /* Centrar el botón */
+    padding: 5px; /* Reducir el padding para el botón */
+}
+
+
+#summary-table tbody tr:nth-child(even) {
+    background-color: var(--bg-color); /* Color suave para filas pares */
+}
+
+#summary-table tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.05); /* Resaltado sutil al pasar el ratón */
+}
+
+#summary-table tfoot td {
+    font-weight: 600;
+    background-color: var(--bg-color);
+    border-top: 2px solid var(--primary-color); /* Borde superior más grueso */
+    color: var(--text-color);
+    padding: 15px 12px; /* Más padding en el pie de tabla */
+}
+
+#summary-table tfoot td:last-child {
+    text-align: right; /* Alinear el total general del pie a la derecha */
+}
+
+
+/* Estilos para el botón de eliminar producto en la tabla de resumen */
+.remove-product-summary-btn {
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    border-radius: 4px; /* Un poco menos redondeado */
+    width: 30px; /* Tamaño ligeramente más grande y cuadrado */
+    height: 30px;
+    font-size: 0.9em;
+    cursor: pointer;
+    display: inline-flex; /* Usar inline-flex para centrar y mantener en línea */
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    padding: 0; /* Elimina padding interno */
+    line-height: 1; /* Asegurar que el texto esté centrado verticalmente */
+}
+
+.remove-product-summary-btn:hover {
+    background-color: #c82333;
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Apila las columnas en pantallas pequeñas */
+        gap: 25px;
+        padding: 20px;
+    }
+
+    .form-container,
+    .summary-table-container {
+        min-width: unset; /* Elimina el ancho mínimo en pantallas pequeñas */
+        width: 100%; /* Ocupa todo el ancho disponible */
+        max-width: 100%; /* Asegura que ocupe el 100% en móvil */
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .producto-input-section {
+        padding: 20px;
+    }
+
+    .producto-input-section input,
+    .producto-input-section select {
+        width: calc(100% - 20px);
+        padding: 10px;
+    }
+
+    #add-to-boleta-btn {
+        padding: 10px 15px;
+        font-size: 1em;
+    }
+
+    /* Ajustes específicos para tablas en móviles */
+    #summary-table thead {
+        display: none; /* Ocultar el encabezado de la tabla en pantallas pequeñas */
+    }
+
+    #summary-table, #summary-table tbody, #summary-table tr, #summary-table td {
+        display: block; /* Cada fila y celda se comporta como un bloque */
+        width: 100%;
+    }
+
+    #summary-table tr {
+        margin-bottom: 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        background-color: var(--card-bg-color);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    }
+
+    #summary-table td {
+        border: none; /* Eliminar bordes de celda individuales */
+        position: relative;
+        padding-left: 50%; /* Espacio para la pseudo-clase de etiqueta */
+        text-align: right; /* Alinear el valor a la derecha */
+        font-size: 1em;
+    }
+
+    #summary-table td:before {
+        content: attr(data-label); /* Usar el atributo data-label para mostrar la etiqueta */
+        position: absolute;
+        left: 12px;
+        width: calc(50% - 24px); /* Ancho de la etiqueta */
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: 600;
+        color: var(--light-text-color);
+    }
+
+    /* Ocultar las columnas de precio unitario y pase unitario en móviles si es demasiado angosto */
+    #summary-table td:nth-child(3),
+    #summary-table td:nth-child(4) {
+        display: none; /* Ocultar para simplificar en pantallas muy pequeñas */
+    }
+
+    #summary-table tfoot td {
+        display: block;
+        width: 100%;
+        text-align: right;
+        padding: 15px 20px;
+    }
+}
